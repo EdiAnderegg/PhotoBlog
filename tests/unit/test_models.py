@@ -1,6 +1,6 @@
 import pytest
 
-from portfolio.models import Collection, Photo
+from portfolio.models import Collection, Photo, Photographer
 
 pytestmark = pytest.mark.django_db
 
@@ -72,3 +72,62 @@ def test_photos_are_ordered_by_display_order_then_id():
     ordered = list(Photo.objects.filter(collection=collection))
 
     assert ordered == [first, second]
+
+
+def test_photographer_save_always_uses_pk_one():
+    first = Photographer.objects.create(name="Jane Doe")
+    second = Photographer(name="Someone Else")
+    second.save()
+
+    assert first.pk == 1
+    assert second.pk == 1
+    assert Photographer.objects.count() == 1
+    assert Photographer.objects.get().name == "Someone Else"
+
+
+def test_get_next_published_returns_next_by_display_order():
+    collection = make_collection()
+    first = make_photo(collection, display_order=1, is_published=True)
+    second = make_photo(collection, display_order=2, is_published=True)
+
+    assert first.get_next_published() == second
+
+
+def test_get_next_published_returns_none_at_the_end():
+    collection = make_collection()
+    only = make_photo(collection, display_order=1, is_published=True)
+
+    assert only.get_next_published() is None
+
+
+def test_get_next_published_skips_unpublished_photos():
+    collection = make_collection()
+    first = make_photo(collection, display_order=1, is_published=True)
+    make_photo(collection, display_order=2, is_published=False)
+    third = make_photo(collection, display_order=3, is_published=True)
+
+    assert first.get_next_published() == third
+
+
+def test_get_next_published_ignores_other_collections():
+    collection = make_collection()
+    other_collection = make_collection(slug="other", title="Other")
+    only = make_photo(collection, display_order=1, is_published=True)
+    make_photo(other_collection, display_order=2, is_published=True)
+
+    assert only.get_next_published() is None
+
+
+def test_get_previous_published_returns_previous_by_display_order():
+    collection = make_collection()
+    first = make_photo(collection, display_order=1, is_published=True)
+    second = make_photo(collection, display_order=2, is_published=True)
+
+    assert second.get_previous_published() == first
+
+
+def test_get_previous_published_returns_none_at_the_start():
+    collection = make_collection()
+    only = make_photo(collection, display_order=1, is_published=True)
+
+    assert only.get_previous_published() is None

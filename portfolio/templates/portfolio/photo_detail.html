@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ photo.title|default:"Photograph" }} — {{ block.super }}{% endblock %}
+
+{% block body_class %}photo-view{% endblock %}
+
+{% block content %}
+    <div class="photo-view__stage">
+        <img src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:photo.title }}">
+    </div>
+
+    <div class="photo-view__info">
+        <a class="photo-view__back" href="{% url 'collection-detail' photo.collection.slug %}">&larr; Back to {{ photo.collection.title }}</a>
+
+        {% if photo.title %}<h1>{{ photo.title }}</h1>{% endif %}
+        {% if photo.description %}<p>{{ photo.description }}</p>{% endif %}
+
+        <dl class="photo-view__meta">
+            {% if photo.location %}
+                <dt>Location</dt><dd>{{ photo.location }}</dd>
+            {% endif %}
+            {% if photo.capture_date %}
+                <dt>Captured</dt><dd>{{ photo.capture_date }}</dd>
+            {% endif %}
+        </dl>
+
+        <nav class="photo-view__pager">
+            {% if previous_photo %}
+                <a href="{% url 'photo-detail' photo.collection.slug previous_photo.pk %}">&larr; Previous</a>
+            {% endif %}
+            {% if next_photo %}
+                <a href="{% url 'photo-detail' photo.collection.slug next_photo.pk %}">Next &rarr;</a>
+            {% endif %}
+        </nav>
+    </div>
+{% endblock %}

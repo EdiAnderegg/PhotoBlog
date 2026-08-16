@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Collection, Photo
+from .models import Collection, Photo, Photographer
 
 
 class PhotoInline(admin.TabularInline):
@@ -21,3 +21,12 @@ class CollectionAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ("title", "collection", "is_published", "display_order")
     list_filter = ("collection", "is_published")
+
+
+@admin.register(Photographer)
+class PhotographerAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return not Photographer.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ collection.title }} — {{ block.super }}{% endblock %}
+
+{% block content %}
+    <header class="collection-header">
+        <h1>{{ collection.title }}</h1>
+        {% if collection.description %}
+            <p>{{ collection.description }}</p>
+        {% endif %}
+    </header>
+
+    <section class="photo-grid">
+        {% for photo in photos %}
+            <a class="photo-tile" href="{% url 'photo-detail' collection.slug photo.pk %}">
+                <img src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:photo.title }}">
+                {% if photo.title or photo.description %}
+                    <div class="photo-tile__overlay">
+                        {% if photo.title %}<h3>{{ photo.title }}</h3>{% endif %}
+                        {% if photo.description %}<p>{{ photo.description|truncatewords:20 }}</p>{% endif %}
+                    </div>
+                {% endif %}
+            </a>
+        {% empty %}
+            <p class="empty-state">No photographs have been published in this collection yet.</p>
+        {% endfor %}
+    </section>
+{% endblock %}
