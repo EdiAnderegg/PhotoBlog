@@ -1,6 +1,8 @@
+import pytest
 from django.urls import reverse
 
 
+@pytest.mark.django_db
 def test_admin_login_page_is_reachable(client):
     response = client.get(reverse("admin:login"))
 

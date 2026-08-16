@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}About — {{ block.super }}{% endblock %}
+
+{% block content %}
+    <section class="about">
+        {% if photographer %}
+            {% if photographer.portrait %}
+                <img class="about__portrait" src="{{ photographer.portrait.url }}" alt="{{ photographer.name }}">
+            {% endif %}
+            <div class="about__body">
+                <h1>{{ photographer.name }}</h1>
+                {% if photographer.bio %}
+                    <p>{{ photographer.bio|linebreaksbr }}</p>
+                {% endif %}
+
+                <ul class="about__contact">
+                    {% if photographer.instagram_url %}
+                        <li><a href="{{ photographer.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>
+                    {% endif %}
+                    {% if photographer.email %}
+                        <li><a href="mailto:{{ photographer.email }}">{{ photographer.email }}</a></li>
+                    {% endif %}
+                    {% if photographer.phone %}
+                        <li><a href="tel:{{ photographer.phone }}">{{ photographer.phone }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="empty-state">Photographer information hasn't been added yet.</p>
+        {% endif %}
+    </section>
+{% endblock %}
