@@ -36,11 +36,9 @@ a {
     justify-content: space-between;
     padding: 1.25rem 1.5rem;
     color: var(--color-text);
-    border-bottom: 1px solid var(--color-border);
 }
 
-body.has-hero .site-header,
-body.has-hero .site-footer {
+body.has-hero .site-header {
     display: none;
 }
 
@@ -374,27 +372,6 @@ body.photo-view main {
 .about__contact a {
     text-decoration: none;
     border-bottom: 1px solid var(--color-border);
-}
-
-/* Footer */
-
-.site-footer {
-    padding: 2rem 1.5rem;
-    border-top: 1px solid var(--color-border);
-    text-align: center;
-}
-
-.site-footer__contact {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.site-footer__contact a {
-    text-decoration: none;
-    font-size: 0.9rem;
-    color: var(--color-muted);
 }
 
 .empty-state {
