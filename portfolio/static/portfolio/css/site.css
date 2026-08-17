@@ -1,8 +1,8 @@
 :root {
-    --color-bg: #ffffff;
-    --color-text: #1a1a1a;
-    --color-muted: #6b6b6b;
-    --color-border: #e5e5e5;
+    --color-bg: #0d0d0d;
+    --color-text: #f2f2f2;
+    --color-muted: #a3a3a3;
+    --color-border: rgba(255, 255, 255, 0.12);
     --color-dark-bg: #0b0b0b;
     --color-dark-text: #f2f2f2;
     --font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -35,18 +35,17 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 1.5rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    color: #fff;
-}
-
-body:not(.has-hero) .site-header {
-    position: static;
     color: var(--color-text);
     border-bottom: 1px solid var(--color-border);
+}
+
+body.has-hero .site-header,
+body.has-hero .site-footer {
+    display: none;
+}
+
+body.has-hero {
+    overflow: hidden;
 }
 
 .site-header__brand {
@@ -70,74 +69,80 @@ body:not(.has-hero) .site-header {
 /* Hero */
 
 .hero {
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-dark-bg);
-    padding: 5rem 1.5rem;
+    padding: clamp(0.75rem, 2vw, 2rem);
+    overflow: hidden;
 }
 
 .hero-frame {
     position: relative;
-    width: min(92vw, 1100px);
-    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
     background: #000;
     padding: clamp(0.75rem, 2vw, 2rem);
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
 }
 
+.hero-frame__nav {
+    position: absolute;
+    top: clamp(0.75rem, 2vw, 1.5rem);
+    left: clamp(0.75rem, 2vw, 1.5rem);
+    z-index: 10;
+    display: flex;
+    gap: 1.25rem;
+}
+
+.hero-frame__nav a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.2s ease;
+}
+
+.hero-frame__nav a:hover {
+    color: #fff;
+}
+
 .hero-frame__inner {
     position: relative;
+    flex: 1;
     width: 100%;
-    height: 100%;
     overflow: hidden;
     background: #111;
 }
 
 .hero-layer {
     position: absolute;
-    inset: -8%;
-    background-size: cover;
+    inset: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     will-change: transform;
     transition: transform 0.2s ease-out;
 }
 
-.hero-frame__content {
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    text-align: center;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-}
-
-.hero-frame__content h1 {
-    font-size: clamp(1.75rem, 5vw, 3.25rem);
+.hero-frame__signature {
+    position: absolute;
+    right: clamp(1rem, 3vw, 2.5rem);
+    bottom: clamp(0.75rem, 2vw, 1.5rem);
     margin: 0;
-    letter-spacing: 0.03em;
-}
-
-.hero-frame__cta {
-    display: inline-block;
-    padding: 0.65rem 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    color: #fff;
-    font-size: 0.85rem;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1.6vw, 1.15rem);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.hero-frame__cta:hover {
-    background: #fff;
-    color: #000;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);
+    z-index: 5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -148,11 +153,7 @@ body:not(.has-hero) .site-header {
 
 @media (max-width: 640px) {
     .hero {
-        padding: 3rem 1rem;
-    }
-
-    .hero-frame {
-        aspect-ratio: 3 / 4;
+        padding: 1rem;
     }
 }
 
@@ -177,7 +178,7 @@ body:not(.has-hero) .site-header {
     aspect-ratio: 4 / 5;
     background-size: cover;
     background-position: center;
-    background-color: #f0f0f0;
+    background-color: #1a1a1a;
     transition: transform 0.4s ease;
 }
 
@@ -272,11 +273,6 @@ body:not(.has-hero) .site-header {
 }
 
 /* Photo detail (fullscreen) */
-
-body.photo-view {
-    background: var(--color-dark-bg);
-    color: var(--color-dark-text);
-}
 
 body.photo-view main {
     display: flex;

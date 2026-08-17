@@ -6,6 +6,11 @@
 {% block content %}
     <section class="hero">
         <div class="hero-frame">
+            <nav class="hero-frame__nav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'collections' %}">Galleries</a>
+                <a href="{% url 'about' %}">About</a>
+            </nav>
             <div class="hero-frame__inner">
                 {% if photographer.hero_background %}
                     <div class="hero-layer" data-parallax-speed="0.4"
@@ -19,10 +24,7 @@
                     <div class="hero-layer" data-parallax-speed="1.4"
                          style="background-image:url('{{ photographer.portrait.url }}')"></div>
                 {% endif %}
-                <div class="hero-frame__content">
-                    <h1>{{ photographer.name|default:"Photography Portfolio" }}</h1>
-                    <a class="hero-frame__cta" href="{% url 'collections' %}">View the Galleries</a>
-                </div>
+                <p class="hero-frame__signature">{{ photographer.name|default:"Photography Portfolio" }}</p>
             </div>
         </div>
     </section>
