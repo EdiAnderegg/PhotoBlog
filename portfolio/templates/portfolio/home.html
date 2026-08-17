@@ -4,40 +4,27 @@
 {% block body_class %}has-hero{% endblock %}
 
 {% block content %}
-    {% if photographer.hero_background %}
-        <section class="hero">
-            <div class="hero-layer hero-layer--background" data-parallax-speed="0.2"
-                 style="background-image:url('{{ photographer.hero_background.url }}')"></div>
-            {% if photographer.hero_foreground_object %}
-                <div class="hero-layer hero-layer--object" data-parallax-speed="0.45"
-                     style="background-image:url('{{ photographer.hero_foreground_object.url }}')"></div>
-            {% endif %}
-            {% if photographer.portrait %}
-                <div class="hero-layer-wrap">
-                    <img class="hero-layer hero-layer--person" data-parallax-speed="0.7"
-                         src="{{ photographer.portrait.url }}" alt="">
+    <section class="hero">
+        <div class="hero-frame">
+            <div class="hero-frame__inner">
+                {% if photographer.hero_background %}
+                    <div class="hero-layer" data-parallax-speed="0.4"
+                         style="background-image:url('{{ photographer.hero_background.url }}')"></div>
+                {% endif %}
+                {% if photographer.hero_foreground_object %}
+                    <div class="hero-layer" data-parallax-speed="0.9"
+                         style="background-image:url('{{ photographer.hero_foreground_object.url }}')"></div>
+                {% endif %}
+                {% if photographer.portrait %}
+                    <div class="hero-layer" data-parallax-speed="1.4"
+                         style="background-image:url('{{ photographer.portrait.url }}')"></div>
+                {% endif %}
+                <div class="hero-frame__content">
+                    <h1>{{ photographer.name|default:"Photography Portfolio" }}</h1>
+                    <a class="hero-frame__cta" href="{% url 'collections' %}">View the Galleries</a>
                 </div>
-            {% endif %}
-            <div class="hero-content">
-                <h1>{{ photographer.name|default:"Photography Portfolio" }}</h1>
             </div>
-        </section>
-    {% endif %}
-
-    <section class="collection-grid" id="collections">
-        {% for collection in collections %}
-            <a class="collection-card" href="{% url 'collection-detail' collection.slug %}">
-                <div class="collection-card__image" style="background-image:url('{{ collection.cover_image.url }}')"></div>
-                <div class="collection-card__body">
-                    <h2>{{ collection.title }}</h2>
-                    {% if collection.description %}
-                        <p>{{ collection.description|truncatewords:25 }}</p>
-                    {% endif %}
-                </div>
-            </a>
-        {% empty %}
-            <p class="empty-state">No collections have been published yet.</p>
-        {% endfor %}
+        </div>
     </section>
 {% endblock %}
 
