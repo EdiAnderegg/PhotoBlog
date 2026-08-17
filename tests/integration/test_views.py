@@ -27,11 +27,17 @@ def make_photo(collection, **kwargs):
     return Photo.objects.create(**defaults)
 
 
-def test_home_lists_only_published_collections(client):
+def test_home_renders(client):
+    response = client.get(reverse("home"))
+
+    assert response.status_code == 200
+
+
+def test_collections_page_lists_only_published_collections(client):
     published = make_collection()
     make_collection(slug="draft", title="Draft", is_published=False)
 
-    response = client.get(reverse("home"))
+    response = client.get(reverse("collections"))
 
     assert response.status_code == 200
     collections = list(response.context["collections"])

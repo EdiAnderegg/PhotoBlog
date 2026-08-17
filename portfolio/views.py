@@ -3,9 +3,13 @@ from django.views.generic import DetailView, ListView, TemplateView
 from .models import Collection, Photo
 
 
-class HomeView(ListView):
-    queryset = Collection.objects.filter(is_published=True)
+class HomeView(TemplateView):
     template_name = "portfolio/home.html"
+
+
+class CollectionListView(ListView):
+    queryset = Collection.objects.filter(is_published=True)
+    template_name = "portfolio/collection_list.html"
     context_object_name = "collections"
 
 

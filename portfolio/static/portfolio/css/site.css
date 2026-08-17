@@ -70,58 +70,89 @@ body:not(.has-hero) .site-header {
 /* Hero */
 
 .hero {
-    position: relative;
-    height: 90vh;
-    min-height: 420px;
-    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--color-dark-bg);
+    padding: 5rem 1.5rem;
+}
+
+.hero-frame {
+    position: relative;
+    width: min(92vw, 1100px);
+    aspect-ratio: 4 / 3;
+    background: #000;
+    padding: clamp(0.75rem, 2vw, 2rem);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+
+.hero-frame__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #111;
 }
 
 .hero-layer {
     position: absolute;
-    inset: 0;
+    inset: -8%;
     background-size: cover;
     background-position: center;
     will-change: transform;
+    transition: transform 0.2s ease-out;
 }
 
-.hero-layer-wrap {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    pointer-events: none;
-}
-
-.hero-layer--person {
-    position: static;
-    height: 90%;
-    width: auto;
-    max-width: 60%;
-    object-fit: contain;
-}
-
-.hero-content {
+.hero-frame__content {
     position: relative;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1.5rem;
     text-align: center;
     color: #fff;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
-.hero-content h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
+.hero-frame__content h1 {
+    font-size: clamp(1.75rem, 5vw, 3.25rem);
     margin: 0;
     letter-spacing: 0.03em;
+}
+
+.hero-frame__cta {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hero-frame__cta:hover {
+    background: #fff;
+    color: #000;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero-layer {
         transform: none !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding: 3rem 1rem;
+    }
+
+    .hero-frame {
+        aspect-ratio: 3 / 4;
     }
 }
 

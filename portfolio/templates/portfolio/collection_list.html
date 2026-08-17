@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Galleries — {{ block.super }}{% endblock %}
+
+{% block content %}
+    <header class="collection-header">
+        <h1>Galleries</h1>
+    </header>
+
+    <section class="collection-grid">
+        {% for collection in collections %}
+            <a class="collection-card" href="{% url 'collection-detail' collection.slug %}">
+                <div class="collection-card__image" style="background-image:url('{{ collection.cover_image.url }}')"></div>
+                <div class="collection-card__body">
+                    <h2>{{ collection.title }}</h2>
+                    {% if collection.description %}
+                        <p>{{ collection.description|truncatewords:25 }}</p>
+                    {% endif %}
+                </div>
+            </a>
+        {% empty %}
+            <p class="empty-state">No collections have been published yet.</p>
+        {% endfor %}
+    </section>
+{% endblock %}
