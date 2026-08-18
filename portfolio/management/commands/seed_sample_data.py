@@ -103,6 +103,9 @@ class Command(BaseCommand):
         photographer.hero_foreground_object = make_placeholder_image(
             "hero-foreground", (800, 800), (60, 40, 30), (120, 90, 60), "Hero Object"
         )
+        photographer.hero_portrait = make_placeholder_image(
+            "hero-portrait", (900, 1200), (50, 50, 60), (110, 110, 130), "Hero Portrait"
+        )
         photographer.save()
 
     def _seed_collections(self):

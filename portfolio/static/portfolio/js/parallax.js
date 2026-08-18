@@ -15,6 +15,9 @@
 
     var maxShiftPx = 26;
     var easing = 0.09;
+    // Must match the scale in .hero-layer (site.css) so the oversized image
+    // keeps covering the frame while it's being translated.
+    var layerScale = 1.25;
     var target = { x: 0, y: 0 };
     var current = { x: 0, y: 0 };
     var raf = null;
@@ -46,7 +49,8 @@
             var speed = parseFloat(layer.dataset.parallaxSpeed) || 0;
             var x = current.x * maxShiftPx * speed;
             var y = current.y * maxShiftPx * speed;
-            layer.style.transform = "translate(" + x.toFixed(2) + "px, " + y.toFixed(2) + "px)";
+            layer.style.transform =
+                "translate(" + x.toFixed(2) + "px, " + y.toFixed(2) + "px) scale(" + layerScale + ")";
         });
 
         var settled =
