@@ -20,9 +20,9 @@
                     <div class="hero-layer" data-parallax-speed="0.9"
                          style="background-image:url('{{ photographer.hero_foreground_object.url }}')"></div>
                 {% endif %}
-                {% if photographer.portrait %}
+                {% if photographer.hero_portrait %}
                     <div class="hero-layer" data-parallax-speed="1.4"
-                         style="background-image:url('{{ photographer.portrait.url }}')"></div>
+                         style="background-image:url('{{ photographer.hero_portrait.url }}')"></div>
                 {% endif %}
                 <p class="hero-frame__signature">{{ photographer.name|default:"Photography Portfolio" }}</p>
             </div>

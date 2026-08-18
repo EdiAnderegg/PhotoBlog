@@ -70,6 +70,7 @@ class Photographer(models.Model):
     phone = models.CharField(max_length=50, blank=True)
     hero_background = models.ImageField(blank=True)
     hero_foreground_object = models.ImageField(blank=True)
+    hero_portrait = models.ImageField(blank=True)
 
     def save(self, *args, **kwargs):
         self.pk = 1
