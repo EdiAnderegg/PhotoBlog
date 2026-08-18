@@ -121,11 +121,15 @@ body.has-hero {
 .hero-layer {
     position: absolute;
     inset: 0;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     will-change: transform;
     transition: transform 0.2s ease-out;
+    /* Oversized relative to the frame so parallax translation (parallax.js)
+       never slides an edge into view; must match the scale baked into
+       parallax.js's transform string. */
+    transform: scale(1.25);
 }
 
 .hero-frame__signature {
